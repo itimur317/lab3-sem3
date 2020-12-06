@@ -118,8 +118,23 @@ public:
             }
         }
 
-
-
         return find_path(past_vertexes_path, short_dist, start_vertex, end_vertex);
+    }
+
+    int path_distance(Sequence<int>* path) {
+        if (!path->GetLength()) {
+            return INT_MAX;
+        }
+        else if (path->GetLength() == 1) {
+            return 0;
+        }
+        else {
+            int path_length = 0;
+            for (int i = 0; i + 1 < path->GetLength(); i++) {
+            // i < x - 1  <=> i + 1 < x
+                path_length += this->graph->Get(path->Get(i) + path->Get(i + 1) * n);
+            }
+            return path_length;
+        }
     }
 };

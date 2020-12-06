@@ -24,11 +24,13 @@ void Test_Graph() {
     assert(testing->Get(0) == 3);
     assert(testing->Get(1) == 4);
     assert(testing->Get(2) == 2);
+    assert(current->path_distance(testing) == 60);
 
     //from i vertex to i vertex
     testing = current->Dijkstra(1, 1);
     assert(testing->GetLength() == 1);
     assert(testing->Get(0) == 1);
+    assert(current->path_distance(testing) == 0);
 
     //path when it`s choose 
     testing = current->Dijkstra(1, 4);
@@ -36,14 +38,17 @@ void Test_Graph() {
     assert(testing->Get(0) == 1);
     assert(testing->Get(1) == 2);
     assert(testing->Get(2) == 4);
+    assert(current->path_distance(testing) == 70);
 
     // unconnected path
     testing = current->Dijkstra(1, 0);
     assert(testing->GetLength() == 0);
+    assert(current->path_distance(testing) == INT_MAX);
 
     // 2nd unconnected path
     testing = current->Dijkstra(0, 4);
     assert(testing->GetLength() == 0);
+    assert(current->path_distance(testing) == INT_MAX);
 
     // path when algprithm choose long but less weigth path
     testing = current->Dijkstra(1, 3);
@@ -52,4 +57,5 @@ void Test_Graph() {
     assert(testing->Get(1) == 2);
     assert(testing->Get(2) == 4);
     assert(testing->Get(3) == 3);
+    assert(current->path_distance(testing) == 90);
 }
