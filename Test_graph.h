@@ -58,4 +58,13 @@ void Test_Graph() {
     assert(testing->Get(2) == 4);
     assert(testing->Get(3) == 3);
     assert(current->path_distance(testing) == 90);
+
+    // path when algprithm choose long but less weigth path
+    testing = current->Dijkstra(3, 1);
+    assert(testing->GetLength() == 4);
+    assert(testing->Get(0) == 3);
+    assert(testing->Get(1) == 4);
+    assert(testing->Get(2) == 2);
+    assert(testing->Get(3) == 1);
+    assert(current->path_distance(testing) == 90);
 }
