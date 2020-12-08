@@ -67,4 +67,26 @@ void Test_Graph() {
     assert(testing->Get(2) == 2);
     assert(testing->Get(3) == 1);
     assert(current->path_distance(testing) == 90);
+
+    /* TESTING SHORT_DIST*/
+    Sequence<int>* short_dist = current->Ranges(3);
+    assert(short_dist->Get(0) == INT_MAX);
+    assert(short_dist->Get(1) == 90);
+    assert(short_dist->Get(2) == 60);
+    assert(short_dist->Get(3) == 0);
+    assert(short_dist->Get(4) == 20);
+
+    short_dist = current->Ranges(0);
+    assert(short_dist->Get(0) == 0);
+    assert(short_dist->Get(1) == INT_MAX);
+    assert(short_dist->Get(2) == INT_MAX);
+    assert(short_dist->Get(3) == INT_MAX);
+    assert(short_dist->Get(4) == INT_MAX);
+
+    short_dist = current->Ranges(2);
+    assert(short_dist->Get(0) == INT_MAX);
+    assert(short_dist->Get(1) == 30);
+    assert(short_dist->Get(2) == 0);
+    assert(short_dist->Get(3) == 60);
+    assert(short_dist->Get(4) == 40);
 }

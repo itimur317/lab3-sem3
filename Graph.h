@@ -31,5 +31,7 @@ private:
 public:
     Sequence<int>* Dijkstra(int start_vertex, int end_vertex);
 
+    Sequence<int>* Ranges(int start_vertex);
+
     int path_distance(Sequence<int>* path);
 };

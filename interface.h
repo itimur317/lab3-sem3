@@ -24,6 +24,7 @@ void interface(){
     int flag = 1;
     while (flag) {
         cout << "1. to find the shortest path" << endl;
+        cout << "2. to check ranges from current vertex to other" << endl;
         cout << "0. to exit" << endl;
         cin >> flag;
         if (flag == 1) {
@@ -42,6 +43,16 @@ void interface(){
             }
             cout << endl;
             cout << "path distance = " << my_graph->path_distance(path) << endl << endl;
+        }
+        else if (flag == 2) {
+            cout << "enter current vertex: ";
+            int start_vertex;
+            cin >> start_vertex;
+            Sequence<int>* short_dist = my_graph->Ranges(start_vertex);
+            for (int i = 0; i < short_dist->GetLength(); i++) {
+                cout << "from " << start_vertex << " to " << i << ":  " << short_dist->Get(i) << endl;
+            }
+            cout << endl;
         }
     }
 }

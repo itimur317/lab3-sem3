@@ -104,6 +104,49 @@ Sequence<int>* Graph::Dijkstra(int start_vertex, int end_vertex) {
     return find_path(past_vertexes_path, short_dist, start_vertex, end_vertex);
 }
 
+Sequence<int>* Graph::Ranges(int start_vertex) {
+    if (start_vertex < 0 || start_vertex >= n)
+        throw out_of_range(IndexOutOfRangeEx);
+    // just check edges
+
+    Sequence<int>* short_dist = new ArraySequence<int>(n);
+    Sequence<bool>* visited_vertexes = new ArraySequence<bool>(n);
+
+    for (int i = 0; i < n; i++) {
+        short_dist->Set(i, INT_MAX);
+        visited_vertexes->Set(i, 0);
+    }
+
+    short_dist->Set(start_vertex, 0);
+
+
+    for (int i = 0; i + 1 < n; i++) {
+        // cycle n - 1 times
+        // i < n - 1  <=>  i + 1 < n
+        // index of short branch
+        int min = min_path(short_dist, visited_vertexes);
+        // min`s vertexes isn`t free anymore 
+        // min - index of the shortest path
+        visited_vertexes->Set(min, 1);
+
+        for (int j = 0; j < n; j++) {
+            if (!visited_vertexes->Get(j) &&
+                // it wasn`t visited
+                (graph->Get(j + min * n)) &&
+                // it isn`t zero
+                (short_dist->Get(min) != INT_MAX) &&
+                // if it = INT_MAX then it illogical
+                (short_dist->Get(min) + graph->Get(j + min * n) < short_dist->Get(j))) {
+                // if this path less than past
+                // this if to find distance
+                short_dist->Set(j, short_dist->Get(min) + graph->Get(j + min * n));
+            }
+        }
+    }
+    //short_dist have all ranges to start_vertex, just return it
+    return short_dist;
+}
+
 int Graph::path_distance(Sequence<int>* path) {
     if (!path->GetLength()) {
         return INT_MAX;
